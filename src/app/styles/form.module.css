@@ -5,13 +5,16 @@
   border-radius: 10px;
   background-color: #ffffff;
   border: 1px solid #3167ff;
-  box-sizing: border-box; /* Garantir que padding e border não afetem a largura */
+  box-sizing: border-box;
 }
 
 .inputContainer {
   font-size: 12px;
 }
-
+.label {
+  font-weight: 600;
+  margin:0 ;
+}
 .input,
 .inputContainer select {
   margin-bottom: 20px;
@@ -21,8 +24,6 @@
   transform: scale(1.02);
   cursor: pointer;
 }
-
-
 
 .input,
 .button {
@@ -51,8 +52,6 @@
   transition: 0.2s ease-in;
 }
 
-
-
 .buttonReset {
   background-color: #dcdcdc;
   border: 1px solid #c5c5c5;
@@ -62,6 +61,6 @@
   background-color: #cad845;
   border: none;
 }
-.form{
-    width: 300px;
+.form {
+  width: 300px;
 }

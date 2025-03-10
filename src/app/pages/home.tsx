@@ -77,7 +77,7 @@ const Home: React.FC = () => {
           setCroppedImage={setCroppedImage}
           setIsModalOpen={setIsModalOpen}
           setSelectedImage={setSelectedImage}
-          croppedImage={croppedImage} // Make sure the croppedImage is passed as string | null
+          croppedImage={croppedImage} 
         />
       </div>
       <div className={styles.containerForm}>
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
           name={name}
           selectedSector={selectedSector}
           sobrenome={sobrenome}
-          croppedImage={croppedImage} // Type consistency here
+          croppedImage={croppedImage}
         />
       </div>
 

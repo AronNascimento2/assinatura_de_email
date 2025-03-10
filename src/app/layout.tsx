@@ -11,7 +11,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* Adicionando o link da fonte no Head */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -21,7 +20,7 @@ export default function RootLayout({
         <link rel="icon" href="uni-logo.png" type="image/png" />
       </head>
 
-      <body style={{ fontFamily: "Alexandria, sans-serif", margin: 0 }}>
+      <body style={{ fontFamily: "Poppins, sans-serif", margin: 0 }}>
         {children}
       </body>
     </html>

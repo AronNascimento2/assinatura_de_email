@@ -20,7 +20,7 @@ export const Form: React.FC<FormProps> = ({
   return (
     <form action="#" method="post" className={styles.form}>
       <div className={styles.inputContainer}>
-        <label htmlFor="nome">Nome</label>
+        <p className={styles.label}>Nome</p>
         <input
           className={styles.input}
           type="text"
@@ -31,7 +31,7 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <label htmlFor="sobrenome">Sobrenome</label>
+        <p className={styles.label}>Sobrenome</p>
         <input
           className={styles.input}
           type="text"
@@ -42,7 +42,7 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <label htmlFor="setor">Setor</label>
+        <p className={styles.label}>Setor</p>
         <select
           id="setor"
           className={styles.input}
@@ -76,7 +76,7 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <label htmlFor="celular">Contato</label>
+        <p className={styles.label}>Contato</p>
         <input
           onChange={(e) => setContato(e.target.value)}
           className={styles.input}
@@ -89,7 +89,7 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <label htmlFor="email">E-mail</label>
+        <p className={styles.label}>E-mail</p>
         <input
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
@@ -100,7 +100,7 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <label htmlFor="local">Local</label>
+        <p className={styles.label}>Local</p>
         <select id="local" className={styles.input} onChange={handleLocal}>
           <option value="">Selecione a localidade</option>
           <option value="CD Guarulhos - Cond.">CD Guarulhos - Cond.</option>

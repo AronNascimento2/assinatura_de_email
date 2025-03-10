@@ -13,6 +13,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #16203d;
 }
 
 .imageSignature {
@@ -48,32 +49,33 @@
 }
 
 .setorSignature {
-  bottom: 49%; /* Ajuste para o setor */
+  bottom: 48%; /* Ajuste para o setor */
   left: 46%;
   font-size: 17px;
   transform: translateX(1%); /* Centraliza horizontalmente */
   position: absolute;
+  font-weight: 600;
 }
 
 .emailSignature {
-  bottom: 21%; /* Ajuste para o e-mail */
-  left: 49%;
+  bottom: 20.4%; /* Ajuste para o e-mail */
+  left: 48.4%;
   position: absolute;
 
   transform: translateX(1%); /* Centraliza horizontalmente */
 }
 
 .contatoSignature {
-  bottom: 31%; /* Ajuste para o contato */
+  bottom: 30%; /* Ajuste para o contato */
   transform: translateX(1%); /* Centraliza horizontalmente */
   position: absolute;
 
-  left: 49%;
+  left: 48.4%;
 }
 
 .localSignature {
-  bottom: 10%; /* Ajuste para o local */
-  left: 49%;
+  bottom: 9%; /* Ajuste para o local */
+  left: 48.4%;
   position: absolute;
 
   transform: translateX(1%); /* Centraliza horizontalmente */
@@ -101,4 +103,3 @@
     background-color: #61a3e9;
   }
 }
-

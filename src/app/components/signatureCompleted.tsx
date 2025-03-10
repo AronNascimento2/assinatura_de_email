@@ -9,7 +9,7 @@ interface SignatureCompletedProps {
   email?: string;
   local?: string;
   name?: string;
-  croppedImage: string | null; // Change from string | undefined to string | null
+  croppedImage: string | null; 
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
