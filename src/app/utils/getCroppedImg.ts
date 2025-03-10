@@ -1,9 +1,24 @@
 import { createImage } from "./createImage";
 
-const getCroppedImg = async (imageSrc, pixelCrop, rotation = 0) => {
-  const image = await createImage(imageSrc);
+interface PixelCrop {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+const getCroppedImg = async (
+  imageSrc: string,
+  pixelCrop: PixelCrop,
+  rotation: number = 0
+): Promise<string | null> => {
+  const image = await createImage(imageSrc); // Aqui a tipagem de createImage garante que image seja um HTMLImageElement
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
+
+  if (!ctx) {
+    return null;
+  }
 
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
@@ -27,7 +42,11 @@ const getCroppedImg = async (imageSrc, pixelCrop, rotation = 0) => {
 
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
-      resolve(URL.createObjectURL(blob));
+      if (blob) {
+        resolve(URL.createObjectURL(blob));
+      } else {
+        resolve(null);
+      }
     }, "image/png");
   });
 };

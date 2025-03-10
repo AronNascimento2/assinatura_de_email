@@ -1,0 +1,104 @@
+.signatureImages {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.signatureImages * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.imageSignature {
+  position: absolute;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  bottom: 18%; /* Ajuste para manter a imagem na posição desejada */
+  left: 33.5%;
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+}
+
+.nameSignature,
+.sobrenomeSignature {
+  text-transform: uppercase;
+}
+.nameSignature {
+  left: 46%;
+  font-size: 40px;
+  font-weight: bold;
+  bottom: 68%; /* Ajuste para o nome */
+  transform: translateX(1%); /* Centraliza horizontalmente */
+  position: absolute;
+}
+
+.sobrenomeSignature {
+  left: 46%;
+  font-size: 40px;
+  font-weight: bold;
+  bottom: 55%; /* Ajuste para o sobrenome */
+  position: absolute;
+  transform: translateX(1%); /* Centraliza horizontalmente */
+}
+
+.setorSignature {
+  bottom: 49%; /* Ajuste para o setor */
+  left: 46%;
+  font-size: 17px;
+  transform: translateX(1%); /* Centraliza horizontalmente */
+  position: absolute;
+}
+
+.emailSignature {
+  bottom: 21%; /* Ajuste para o e-mail */
+  left: 49%;
+  position: absolute;
+
+  transform: translateX(1%); /* Centraliza horizontalmente */
+}
+
+.contatoSignature {
+  bottom: 31%; /* Ajuste para o contato */
+  transform: translateX(1%); /* Centraliza horizontalmente */
+  position: absolute;
+
+  left: 49%;
+}
+
+.localSignature {
+  bottom: 10%; /* Ajuste para o local */
+  left: 49%;
+  position: absolute;
+
+  transform: translateX(1%); /* Centraliza horizontalmente */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.downloadButton {
+  z-index: 99;
+
+  background-color: #007bff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px;
+
+  color: White;
+  &:hover {
+    cursor: pointer;
+    background-color: #61a3e9;
+  }
+}
+
