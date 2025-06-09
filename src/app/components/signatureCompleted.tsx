@@ -9,7 +9,7 @@ interface SignatureCompletedProps {
   email?: string;
   local?: string;
   name?: string;
-  croppedImage: string | null; 
+  croppedImage: string | null;
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
@@ -26,14 +26,27 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   const handleDownload = async () => {
     if (!signatureRef.current) return;
 
-    const canvas = await html2canvas(signatureRef.current, {
+    const originalCanvas = await html2canvas(signatureRef.current, {
       backgroundColor: null,
       scale: window.devicePixelRatio,
       useCORS: true,
       removeContainer: false,
     });
 
-    const image = canvas.toDataURL("image/png");
+    const targetWidth = 926;
+    const targetHeight = 266;
+
+    const resizedCanvas = document.createElement("canvas");
+    resizedCanvas.width = targetWidth;
+    resizedCanvas.height = targetHeight;
+
+    const ctx = resizedCanvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.drawImage(originalCanvas, 0, 0, targetWidth, targetHeight);
+
+    const image = resizedCanvas.toDataURL("image/png");
+
     const link = document.createElement("a");
     link.href = image;
     link.download = `assinatura_${name}.png`;
