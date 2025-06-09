@@ -33,8 +33,8 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
       removeContainer: false,
     });
 
-    const targetWidth = 926;
-    const targetHeight = 266;
+    const targetWidth = 593;
+    const targetHeight = 180;
 
     const resizedCanvas = document.createElement("canvas");
     resizedCanvas.width = targetWidth;
