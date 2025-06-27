@@ -72,6 +72,8 @@ export const Form: React.FC<FormProps> = ({
           <option value="Qualidade - RT">Qualidade - RT</option>
           <option value="Qualidade">Qualidade</option>
           <option value="Vendas">Vendas</option>
+          <option value="Vendas">Governança e Controladoria</option>
+
         </select>
       </div>
 
