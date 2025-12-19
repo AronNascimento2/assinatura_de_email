@@ -26,11 +26,11 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   const handleDownload = async () => {
     if (!signatureRef.current) return;
 
+    const scaleFactor = 4;
     const originalCanvas = await html2canvas(signatureRef.current, {
       backgroundColor: null,
-      scale: window.devicePixelRatio,
+      scale: scaleFactor,
       useCORS: true,
-      removeContainer: false,
     });
 
     const targetWidth = 593;
@@ -43,9 +43,11 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
     const ctx = resizedCanvas.getContext("2d");
     if (!ctx) return;
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.drawImage(originalCanvas, 0, 0, targetWidth, targetHeight);
 
-    const image = resizedCanvas.toDataURL("image/png");
+    const image = resizedCanvas.toDataURL("image/png", 1.0);
 
     const link = document.createElement("a");
     link.href = image;
@@ -59,9 +61,9 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
         <img src="/template.jpg" alt="Template" className={styles.image} />
         <p className={styles.nameSignature}>{name || "Nome"}</p>
         <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
-        <p className={styles.setorSignature}>{selectedSector || "Setor"}</p>
+        <p className={styles.setorSignature}>{selectedSector || ""}</p>
         <p className={styles.contatoSignature}>{contato || "Contato"}</p>
-        <p className={styles.emailSignature}>{email || "Emsdail"}</p>
+        <p className={styles.emailSignature}>{email || "Email"}</p>
         <p className={styles.localSignature}>{local || "Local"}</p>
         <img
           className={styles.imageSignature}

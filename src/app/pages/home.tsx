@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [croppedImage, setCroppedImage] = useState<string | null>(null); // Ensured croppedImage is string | null
+  const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [contato, setContato] = useState("");
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
             <form method="post">
               <label>
                 <img
-                  src={croppedImage || "user.png"} // Default to "user.png" if no croppedImage
+                  src={croppedImage || "user.png"}
                   className={`${styles.image} ${styles.imgResponsive} ${styles.imgCircle} ${styles.userImage}`}
                   alt="Usuário"
                 />
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
           setCroppedImage={setCroppedImage}
           setIsModalOpen={setIsModalOpen}
           setSelectedImage={setSelectedImage}
-          croppedImage={croppedImage} 
+          croppedImage={croppedImage}
         />
       </div>
       <div className={styles.containerForm}>

@@ -7,24 +7,24 @@
   width: fit-content;
   background-color: transparent;
 }
-
+ 
 .signatureImages * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: #16203d;
 }
-
+ 
 .imageSignature {
   position: absolute;
   border-radius: 50%;
   width: 180px;
   height: 180px;
-  bottom: 15.7%; /* Ajuste para manter a imagem na posição desejada */
+  bottom: 15.7%;
   left: 33.5%;
-  transform: translateX(-50%); /* Centraliza horizontalmente */
+  transform: translateX(-50%); 
 }
-
+ 
 .nameSignature,
 .sobrenomeSignature {
   text-transform: uppercase;
@@ -33,72 +33,73 @@
   left: 46%;
   font-size: 40px;
   font-weight: bold;
-  bottom: 68%; /* Ajuste para o nome */
-  transform: translateX(1%); /* Centraliza horizontalmente */
+  bottom: 70%; 
+  transform: translateX(1%); 
   position: absolute;
 }
-
+ 
 .sobrenomeSignature {
   left: 46%;
   font-size: 40px;
   font-weight: bold;
-  bottom: 55%; /* Ajuste para o sobrenome */
+  bottom: 55%; 
   position: absolute;
-  transform: translateX(1%); /* Centraliza horizontalmente */
+  transform: translateX(1%); 
 }
-
+ 
 .setorSignature {
-  bottom: 48%; /* Ajuste para o setor */
+  bottom: 48%; 
   left: 46%;
   font-size: 17px;
-  transform: translateX(1%); /* Centraliza horizontalmente */
+  transform: translateX(1%); 
   position: absolute;
   font-weight: 600;
 }
-
+ 
 .emailSignature {
-  bottom: 20.4%; /* Ajuste para o e-mail */
+  bottom: 18%; 
   left: 48.4%;
   position: absolute;
 
-  transform: translateX(1%); /* Centraliza horizontalmente */
+  transform: translateX(1%); 
 }
-
+ 
 .contatoSignature {
-  bottom: 30%; /* Ajuste para o contato */
-  transform: translateX(1%); /* Centraliza horizontalmente */
+  bottom: 29%; 
+  transform: translateX(1%); 
   position: absolute;
-
+ 
   left: 48.4%;
 }
-
+ 
 .localSignature {
-  bottom: 9%; /* Ajuste para o local */
+  bottom: 6%; 
   left: 48.4%;
   position: absolute;
-
-  transform: translateX(1%); /* Centraliza horizontalmente */
+ 
+  transform: translateX(1%);
 }
-
+ 
 .buttonContainer {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
-
+ 
 .downloadButton {
   z-index: 99;
-
+ 
   background-color: #007bff;
   border: none;
   padding: 10px;
   border-radius: 6px;
   margin: 10px 0;
-
+ 
   color: White;
   &:hover {
     cursor: pointer;
     background-color: #61a3e9;
   }
 }
+ 

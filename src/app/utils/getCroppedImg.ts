@@ -12,7 +12,7 @@ const getCroppedImg = async (
   pixelCrop: PixelCrop,
   rotation: number = 0
 ): Promise<string | null> => {
-  const image = await createImage(imageSrc); // Aqui a tipagem de createImage garante que image seja um HTMLImageElement
+  const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 

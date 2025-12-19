@@ -58,7 +58,8 @@ export const Form: React.FC<FormProps> = ({
           <option value="Diretoria de Negócios">Diretoria de Negócios</option>
           <option value="Expedição">Expedição</option>
           <option value="Financeiro">Financeiro</option>
-          <option value="Gente e Gestão">Gente e Gestão</option>
+          <option value="GEDOC">GEDOC</option>
+          <option value="Gente e Cultura">Gente e Cultura</option>
           <option value="GRIS">GRIS</option>
           <option value="Gestão de Projetos">Gestão de Projetos</option>
           <option value="Inovação e Tecnologia">Inovação e Tecnologia</option>
@@ -72,8 +73,9 @@ export const Form: React.FC<FormProps> = ({
           <option value="Qualidade - RT">Qualidade - RT</option>
           <option value="Qualidade">Qualidade</option>
           <option value="Vendas">Vendas</option>
-          <option value="Governança e Controladoria">Governança e Controladoria</option>
-
+          <option value="Governança e Controladoria">
+            Governança e Controladoria
+          </option>
         </select>
       </div>
 
