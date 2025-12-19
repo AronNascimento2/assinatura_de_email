@@ -61,7 +61,7 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
         <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
         <p className={styles.setorSignature}>{selectedSector || "Setor"}</p>
         <p className={styles.contatoSignature}>{contato || "Contato"}</p>
-        <p className={styles.emailSignature}>{email || "Email"}</p>
+        <p className={styles.emailSignature}>{email || "Emsdail"}</p>
         <p className={styles.localSignature}>{local || "Local"}</p>
         <img
           className={styles.imageSignature}
