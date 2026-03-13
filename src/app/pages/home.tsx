@@ -14,10 +14,10 @@ const Home: React.FC = () => {
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [sobrenome, setSobrenome] = useState("");
-  const [contato, setContato] = useState("");
+  const [ramal, setRamal] = useState("");
   const [email, setEmail] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("");
-  const [local, setLocal] = useState<string>("");
+  const [local, setLocal] = useState<string>("CD Guarulhos - Cond.");
 
   const handleSectorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSector(event.target.value);
@@ -35,7 +35,11 @@ const Home: React.FC = () => {
       setIsModalOpen(true);
     }
   };
+  const firstLetter = name?.[0] ?? "";
+  const lastName = sobrenome ?? "";
 
+  const resultUserName =
+    `${firstLetter}${lastName}`.trim().toLowerCase() + "@unicargo.com.br";
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
@@ -85,21 +89,25 @@ const Home: React.FC = () => {
           setName={setName}
           setSobrenome={setSobrenome}
           setEmail={setEmail}
-          setContato={setContato}
+          setRamal={setRamal}
           handleSectorChange={handleSectorChange}
           handleLocal={handleLocal}
+          local={local}
+          resultUserName={resultUserName}
+          email={email}
         />
       </div>
 
       <div className={styles.containerSig}>
         <SignatureCompleted
-          contato={contato}
+          ramal={ramal}
           email={email}
           local={local}
           name={name}
           selectedSector={selectedSector}
           sobrenome={sobrenome}
           croppedImage={croppedImage}
+          resultUserName={resultUserName}
         />
       </div>
 

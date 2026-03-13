@@ -5,21 +5,23 @@ import styles from "../styles/signatureCompleted.module.css";
 interface SignatureCompletedProps {
   sobrenome?: string;
   selectedSector?: string;
-  contato?: string;
+  ramal?: string;
   email?: string;
   local?: string;
   name?: string;
   croppedImage: string | null;
+  resultUserName: string;
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   sobrenome,
   selectedSector,
-  contato,
-  email,
+  ramal,
+  resultUserName,
   local,
   name,
   croppedImage,
+  email,
 }) => {
   const signatureRef = useRef<HTMLDivElement>(null);
 
@@ -62,8 +64,12 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
         <p className={styles.nameSignature}>{name || "Nome"}</p>
         <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
         <p className={styles.setorSignature}>{selectedSector || ""}</p>
-        <p className={styles.contatoSignature}>{contato || "Contato"}</p>
-        <p className={styles.emailSignature}>{email || "Email"}</p>
+        <p className={styles.contatoSignature}>
+          Tel:11 2413-1700 {ramal && `  Ramal: ${ramal}`}
+        </p>
+        <p className={styles.emailSignature}>
+          {email?.trim() ? email : resultUserName}
+        </p>{" "}
         <p className={styles.localSignature}>{local || "Local"}</p>
         <img
           className={styles.imageSignature}

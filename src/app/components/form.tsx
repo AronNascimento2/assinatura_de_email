@@ -4,18 +4,24 @@ interface FormProps {
   setName: (value: string) => void;
   setSobrenome: (value: string) => void;
   setEmail: (value: string) => void;
-  setContato: (value: string) => void;
+  setRamal: (value: string) => void;
   handleSectorChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleLocal: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  local: string;
+  resultUserName: string;
+  email: string;
 }
 
 export const Form: React.FC<FormProps> = ({
   setName,
   setSobrenome,
   setEmail,
-  setContato,
+  setRamal,
   handleSectorChange,
   handleLocal,
+  resultUserName,
+  local,
+  email,
 }) => {
   return (
     <form action="#" method="post" className={styles.form}>
@@ -80,14 +86,14 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <p className={styles.label}>Contato</p>
+        <p className={styles.label}>Ramal</p>
         <input
-          onChange={(e) => setContato(e.target.value)}
+          onChange={(e) => setRamal(e.target.value)}
           className={styles.input}
           type="text"
-          id="celular"
-          placeholder="(xx) xxxxx-xxxx"
-          pattern="\(\d{2}\) \d{5}-\d{4}"
+          id="ramal"
+          placeholder="Digite o ramal"
+          pattern="\d{4}"
           required
         />
       </div>
@@ -95,6 +101,7 @@ export const Form: React.FC<FormProps> = ({
       <div className={styles.inputContainer}>
         <p className={styles.label}>E-mail</p>
         <input
+          defaultValue={email?.trim() ? email : resultUserName}
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
           type="email"
@@ -105,7 +112,12 @@ export const Form: React.FC<FormProps> = ({
 
       <div className={styles.inputContainer}>
         <p className={styles.label}>Local</p>
-        <select id="local" className={styles.input} onChange={handleLocal}>
+        <select
+          id="local"
+          defaultValue={local}
+          className={styles.input}
+          onChange={handleLocal}
+        >
           <option value="">Selecione a localidade</option>
           <option value="CD Guarulhos - Cond.">CD Guarulhos - Cond.</option>
         </select>
