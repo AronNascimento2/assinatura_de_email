@@ -106,7 +106,7 @@ export const Form: React.FC<FormProps> = ({
           className={styles.input}
           type="email"
           id="email"
-          placeholder="Digite o e-mail"
+          placeholder="Digite o e-mai"
         />
       </div>
 
