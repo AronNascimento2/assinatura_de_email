@@ -92,7 +92,7 @@ export const Form: React.FC<FormProps> = ({
           className={styles.input}
           type="text"
           id="ramal"
-          placeholder="Digite o ramal"
+          placeholder="Digite o rama"
           pattern="\d{4}"
           required
         />
@@ -106,7 +106,7 @@ export const Form: React.FC<FormProps> = ({
           className={styles.input}
           type="email"
           id="email"
-          placeholder="Digite o e-mai"
+          placeholder="Digite o e-mail"
         />
       </div>
 
