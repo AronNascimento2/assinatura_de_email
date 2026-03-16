@@ -92,7 +92,7 @@ export const Form: React.FC<FormProps> = ({
           className={styles.input}
           type="text"
           id="ramal"
-          placeholder="Digite o ramal "
+          placeholder="Digite o ramal"
           pattern="\d{4}"
           required
         />
