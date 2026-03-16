@@ -10,6 +10,7 @@ interface FormProps {
   local: string;
   resultUserName: string;
   email: string;
+  setSelectedSector: (value: string) => void;
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -22,7 +23,41 @@ export const Form: React.FC<FormProps> = ({
   resultUserName,
   local,
   email,
+  setSelectedSector,
 }) => {
+  const sectors = [
+    "Administrativo",
+    "ADM e Regulatório",
+    "CEO",
+    "Comercial",
+    "Customer Success",
+    "Compras",
+    "Diretoria de Negócios",
+    "Expedição",
+    "Financeiro",
+    "GEDOC",
+    "Gente e Cultura",
+    "GRIS",
+    "Gestão de Projetos",
+    "Inovação e Tecnologia",
+    "Marketing",
+    "CX - Customer Experience",
+    "Operações",
+    "Operacional",
+    "Pricing",
+    "Qualidade - RT",
+    "Qualidade",
+    "Vendas",
+    "Governança e Controladoria",
+  ];
+
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setRamal("");
+    setSobrenome("");
+    setSelectedSector("");
+  };
   return (
     <form action="#" method="post" className={styles.form}>
       <div className={styles.inputContainer}>
@@ -55,33 +90,12 @@ export const Form: React.FC<FormProps> = ({
           onChange={handleSectorChange}
         >
           <option value="">Selecione o setor</option>
-          <option value="Administrativo">Administrativo</option>
-          <option value="ADM e Regulatório">ADM e Regulatório</option>
-          <option value="CEO">CEO</option>
-          <option value="Comercial">Comercial</option>
-          <option value="Customer Success">Customer Success</option>
-          <option value="Compras">Compras</option>
-          <option value="Diretoria de Negócios">Diretoria de Negócios</option>
-          <option value="Expedição">Expedição</option>
-          <option value="Financeiro">Financeiro</option>
-          <option value="GEDOC">GEDOC</option>
-          <option value="Gente e Cultura">Gente e Cultura</option>
-          <option value="GRIS">GRIS</option>
-          <option value="Gestão de Projetos">Gestão de Projetos</option>
-          <option value="Inovação e Tecnologia">Inovação e Tecnologia</option>
-          <option value="Marketing">Marketing</option>
-          <option value="CX - Customer Experience">
-            CX - Customer Experience
-          </option>
-          <option value="Operações">Operações</option>
-          <option value="Operacional">Operacional</option>
-          <option value="Pricing">Pricing</option>
-          <option value="Qualidade - RT">Qualidade - RT</option>
-          <option value="Qualidade">Qualidade</option>
-          <option value="Vendas">Vendas</option>
-          <option value="Governança e Controladoria">
-            Governança e Controladoria
-          </option>
+
+          {sectors.map((sector) => (
+            <option key={sector} value={sector}>
+              {sector}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -131,6 +145,7 @@ export const Form: React.FC<FormProps> = ({
           className={`${styles.button} ${styles.buttonReset}`}
           type="reset"
           value="Redefinir"
+          onClick={resetForm}
         />
       </div>
     </form>

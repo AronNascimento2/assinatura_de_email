@@ -95,6 +95,7 @@ const Home: React.FC = () => {
           local={local}
           resultUserName={resultUserName}
           email={email}
+          setSelectedSector={setSelectedSector}
         />
       </div>
 
