@@ -4,26 +4,34 @@ interface FormProps {
   setName: (value: string) => void;
   setSobrenome: (value: string) => void;
   setEmail: (value: string) => void;
-  setRamal: (value: string) => void;
+  setBranchLineOrCellPhone: (value: string) => void;
   handleSectorChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleLocal: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   local: string;
   resultUserName: string;
   email: string;
   setSelectedSector: (value: string) => void;
+  selectRadioButton: string;
+  handleRadioButton: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  branchLineOrCellPhone: string;
+  setSelectRadioButton: (value: string) => void;
 }
 
 export const Form: React.FC<FormProps> = ({
+  selectRadioButton,
+  handleRadioButton,
   setName,
   setSobrenome,
   setEmail,
-  setRamal,
+  setBranchLineOrCellPhone,
   handleSectorChange,
   handleLocal,
   resultUserName,
   local,
   email,
   setSelectedSector,
+  branchLineOrCellPhone,
+  setSelectRadioButton,
 }) => {
   const sectors = [
     "Administrativo",
@@ -54,9 +62,33 @@ export const Form: React.FC<FormProps> = ({
   const resetForm = () => {
     setName("");
     setEmail("");
-    setRamal("");
+    setBranchLineOrCellPhone("");
     setSobrenome("");
     setSelectedSector("");
+    setSelectRadioButton("");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+
+    if (selectRadioButton === "celular") {
+      if (value.length <= 2) {
+        value = value;
+      } else if (value.length <= 7) {
+        value = value.replace(/^(\d{2})(\d+)/, "($1) $2");
+      } else {
+        value = value
+          .replace(/^(\d{2})(\d+)/, "($1) $2")
+          .replace(/(\d{5})(\d+)/, "$1-$2");
+      }
+
+      value = value.slice(0, 15);
+    } else {
+      // ramal (somente números)
+      value = value.slice(0, 5);
+    }
+
+    setBranchLineOrCellPhone(value);
   };
   return (
     <form action="#" method="post" className={styles.form}>
@@ -100,15 +132,50 @@ export const Form: React.FC<FormProps> = ({
       </div>
 
       <div className={styles.inputContainer}>
-        <p className={styles.label}>Ramal</p>
+        <div className={styles.containerRadio}>
+          <div className={styles.radiobutton}>
+            <input
+              type="radio"
+              id="ramal"
+              name="drone"
+              value="ramal"
+              onChange={handleRadioButton}
+              checked={selectRadioButton === "ramal"}
+            />
+            <label htmlFor="ramal">Ramal</label>
+          </div>
+
+          <div className={styles.radiobutton}>
+            <input
+              type="radio"
+              id="celular"
+              name="drone"
+              value="celular"
+              onChange={handleRadioButton}
+              checked={selectRadioButton === "celular"}
+            />
+            <label htmlFor="celular">Celular</label>
+          </div>
+          <span style={{ paddingRight: "10px" }}>(Opcional)</span>
+        </div>
+
         <input
-          onChange={(e) => setRamal(e.target.value)}
+          disabled={!selectRadioButton}
+          value={branchLineOrCellPhone}
+          onChange={handleInputChange}
           className={styles.input}
           type="text"
-          id="ramal"
-          placeholder="Digite o ramal"
-          pattern="\d{4}"
+          placeholder={
+            !selectRadioButton
+              ? "Escolha ramal ou celular"
+              : `Digite o ${selectRadioButton}`
+          }
           required
+          pattern={
+            selectRadioButton === "celular"
+              ? "\\(\\d{2}\\) \\d{5}-\\d{4}"
+              : "\\d{1,5}"
+          }
         />
       </div>
 

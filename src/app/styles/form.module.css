@@ -8,12 +8,29 @@
   box-sizing: border-box;
 }
 
+.containerRadio {
+  display: flex;
+  alignitems: center;
+  paddingbottom: 4px;
+  gap: 2px;
+}
+
+.radiobutton {
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+  font-weight: 600;
+  font-size: 12px;
+}
+.radiobutton:nth-child(2) {
+  padding-right: 10px;
+}
 .inputContainer {
   font-size: 12px;
 }
 .label {
   font-weight: 600;
-  margin:0 ;
+  margin: 0;
 }
 .input,
 .inputContainer select {

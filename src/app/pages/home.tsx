@@ -14,13 +14,18 @@ const Home: React.FC = () => {
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [sobrenome, setSobrenome] = useState("");
-  const [ramal, setRamal] = useState("");
+  const [branchLineOrCellPhone, setBranchLineOrCellPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("");
   const [local, setLocal] = useState<string>("CD Guarulhos - Cond.");
-
+  const [selectRadioButton, setSelectRadioButton] = useState("");
   const handleSectorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSector(event.target.value);
+  };
+
+  const handleRadioButton = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectRadioButton(e.target.value as "ramal" | "celular");
+    setBranchLineOrCellPhone("");
   };
 
   const handleLocal = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -86,10 +91,14 @@ const Home: React.FC = () => {
       </div>
       <div className={styles.containerForm}>
         <Form
+          setSelectRadioButton={setSelectRadioButton}
+          branchLineOrCellPhone={branchLineOrCellPhone}
+          selectRadioButton={selectRadioButton}
+          handleRadioButton={handleRadioButton}
           setName={setName}
           setSobrenome={setSobrenome}
           setEmail={setEmail}
-          setRamal={setRamal}
+          setBranchLineOrCellPhone={setBranchLineOrCellPhone}
           handleSectorChange={handleSectorChange}
           handleLocal={handleLocal}
           local={local}
@@ -101,7 +110,8 @@ const Home: React.FC = () => {
 
       <div className={styles.containerSig}>
         <SignatureCompleted
-          ramal={ramal}
+          selectRadioButton={selectRadioButton}
+          branchLineOrCellPhone={branchLineOrCellPhone}
           email={email}
           local={local}
           name={name}

@@ -5,18 +5,20 @@ import styles from "../styles/signatureCompleted.module.css";
 interface SignatureCompletedProps {
   sobrenome?: string;
   selectedSector?: string;
-  ramal?: string;
+  branchLineOrCellPhone?: string;
   email?: string;
   local?: string;
   name?: string;
   croppedImage: string | null;
   resultUserName: string;
+  selectRadioButton: string;
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
+  selectRadioButton,
   sobrenome,
   selectedSector,
-  ramal,
+  branchLineOrCellPhone,
   resultUserName,
   local,
   name,
@@ -56,16 +58,24 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
     link.download = `assinatura_${name}.png`;
     link.click();
   };
+  const formatLabel = (value?: string) => {
+    if (!value) return "";
 
+    if (value === "celular") return "Cel:";
+
+    return value[0].toUpperCase() + value.slice(1) + ":";
+  };
+
+  const label = formatLabel(selectRadioButton);
   return (
-    <>
+    <div className={styles.signatureImagesContainer}>
       <div className={styles.signatureImages} ref={signatureRef}>
         <img src="/template.jpg" alt="Template" className={styles.image} />
         <p className={styles.nameSignature}>{name || "Nome"}</p>
         <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
         <p className={styles.setorSignature}>{selectedSector || ""}</p>
         <p className={styles.contatoSignature}>
-          Tel:11 2413-1700 {ramal && `  Ramal: ${ramal}`}
+          Tel: 11 2413-1700 {label} {branchLineOrCellPhone}
         </p>
         <p className={styles.emailSignature}>
           {email?.trim() ? email : resultUserName}
@@ -77,12 +87,11 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
           alt="Assinatura"
         />
       </div>
-
       {name && sobrenome && croppedImage && (
         <button className={styles.downloadButton} onClick={handleDownload}>
           📥 Baixar Assinatura
         </button>
       )}
-    </>
+    </div>
   );
 };
