@@ -75,7 +75,7 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
         <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
         <p className={styles.setorSignature}>{selectedSector || ""}</p>
         <p className={styles.contatoSignature}>
-          Tel: 11 2413-1700 {label} {branchLineOrCellPhone}
+          Tel: 2413-1700 {label} {branchLineOrCellPhone}
         </p>
         <p className={styles.emailSignature}>
           {email?.trim() ? email : resultUserName}
