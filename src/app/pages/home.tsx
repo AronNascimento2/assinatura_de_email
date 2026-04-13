@@ -23,9 +23,14 @@ const Home: React.FC = () => {
     setSelectedSector(event.target.value);
   };
 
-  const handleRadioButton = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectRadioButton(e.target.value as "ramal" | "celular");
-    setBranchLineOrCellPhone("");
+  const handleRadioButton = (event: React.MouseEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+
+    if (selectRadioButton === value) {
+      setSelectRadioButton("");
+    } else {
+      setSelectRadioButton(value);
+    }
   };
 
   const handleLocal = (event: React.ChangeEvent<HTMLSelectElement>) => {

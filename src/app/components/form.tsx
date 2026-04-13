@@ -12,7 +12,7 @@ interface FormProps {
   email: string;
   setSelectedSector: (value: string) => void;
   selectRadioButton: string;
-  handleRadioButton: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleRadioButton: (event: React.MouseEvent<HTMLInputElement>) => void;
   branchLineOrCellPhone: string;
   setSelectRadioButton: (value: string) => void;
 }
@@ -139,7 +139,7 @@ export const Form: React.FC<FormProps> = ({
               id="ramal"
               name="drone"
               value="ramal"
-              onChange={handleRadioButton}
+              onClick={handleRadioButton}
               checked={selectRadioButton === "ramal"}
             />
             <label htmlFor="ramal">Ramal</label>
@@ -151,7 +151,7 @@ export const Form: React.FC<FormProps> = ({
               id="celular"
               name="drone"
               value="celular"
-              onChange={handleRadioButton}
+              onClick={handleRadioButton}
               checked={selectRadioButton === "celular"}
             />
             <label htmlFor="celular">Celular</label>
