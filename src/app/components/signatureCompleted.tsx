@@ -1,29 +1,24 @@
 import { useRef } from "react";
 import html2canvas from "html2canvas";
-import styles from "../styles/signatureCompleted.module.css";
 
 interface SignatureCompletedProps {
   sobrenome?: string;
   selectedSector?: string;
-  branchLineOrCellPhone?: string;
+  contato?: string;
   email?: string;
   local?: string;
   name?: string;
   croppedImage: string | null;
-  resultUserName: string;
-  selectRadioButton: string;
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
-  selectRadioButton,
   sobrenome,
   selectedSector,
-  branchLineOrCellPhone,
-  resultUserName,
+  contato,
+  email,
   local,
   name,
   croppedImage,
-  email,
 }) => {
   const signatureRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +26,7 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
     if (!signatureRef.current) return;
 
     const scaleFactor = 4;
+
     const originalCanvas = await html2canvas(signatureRef.current, {
       backgroundColor: null,
       scale: scaleFactor,
@@ -58,40 +54,56 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
     link.download = `assinatura_${name}.png`;
     link.click();
   };
-  const formatLabel = (value?: string) => {
-    if (!value) return "";
 
-    if (value === "celular") return "Cel:";
-
-    return value[0].toUpperCase() + value.slice(1) + ":";
-  };
-
-  const label = formatLabel(selectRadioButton);
   return (
-    <div className={styles.signatureImagesContainer}>
-      <div className={styles.signatureImages} ref={signatureRef}>
-        <img src="/template.jpg" alt="Template" className={styles.image} />
-        <p className={styles.nameSignature}>{name || "Nome"}</p>
-        <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
-        <p className={styles.setorSignature}>{selectedSector || ""}</p>
-        <p className={styles.contatoSignature}>
-          Tel: 2413-1700 {label} {branchLineOrCellPhone}
+    <>
+      <div
+        ref={signatureRef}
+        className="relative flex w-fit flex-col items-center justify-center bg-transparent"
+      >
+        <img src="/template.jpg" alt="Template" className="block" />
+
+        <p className="absolute bottom-[70%] left-[46%] translate-x-[1%] text-[40px] font-bold uppercase text-[#16203d] m-0 p-0">
+          {name || "Nome"}
         </p>
-        <p className={styles.emailSignature}>
-          {email?.trim() ? email : resultUserName}
-        </p>{" "}
-        <p className={styles.localSignature}>{local || "Local"}</p>
+
+        <p className="absolute bottom-[55%] left-[46%] translate-x-[1%] text-[40px] font-bold uppercase text-[#16203d] m-0 p-0">
+          {sobrenome || "Sobrenome"}
+        </p>
+
+        <p className="absolute bottom-[48%] left-[46%] translate-x-[1%] text-[17px] font-semibold text-[#16203d] m-0 p-0">
+          {selectedSector || ""}
+        </p>
+
+        <p className="absolute bottom-[29%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
+          {contato || "Contato"}
+        </p>
+
+        <p className="absolute bottom-[18%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
+          {email || "Email"}
+        </p>
+
+        <p className="absolute bottom-[6%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
+          {local || "Local"}
+        </p>
+
         <img
-          className={styles.imageSignature}
+          className="absolute bottom-[15.7%] left-[33.5%] h-[180px] w-[180px] -translate-x-1/2 rounded-full"
           src={croppedImage || "/user.png"}
           alt="Assinatura"
         />
       </div>
+
       {name && sobrenome && croppedImage && (
-        <button className={styles.downloadButton} onClick={handleDownload}>
-          📥 Baixar Assinatura
-        </button>
+        <div className="mt-5 flex justify-center gap-2.5">
+          <button
+            onClick={handleDownload}
+            className="z-[99] my-2 rounded-md bg-blue-600 px-4 py-2 text-white transition hover:cursor-pointer hover:bg-blue-400"
+          >
+            📥 Baixar Assinatura
+          </button>
+        </div>
       )}
-    </div>
+    </>
   );
 };

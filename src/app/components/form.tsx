@@ -1,5 +1,3 @@
-import styles from "../styles/form.module.css";
-
 interface FormProps {
   setName: (value: string) => void;
   setSobrenome: (value: string) => void;
@@ -91,11 +89,11 @@ export const Form: React.FC<FormProps> = ({
     setBranchLineOrCellPhone(value);
   };
   return (
-    <form action="#" method="post" className={styles.form}>
-      <div className={styles.inputContainer}>
-        <p className={styles.label}>Nome</p>
+    <form action="#" method="post" className="w-80">
+      <div className="">
+        <p className="font-semibold m-0 text-sm">Nome</p>
         <input
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           type="text"
           id="nome"
           placeholder="Digite o nome"
@@ -103,10 +101,10 @@ export const Form: React.FC<FormProps> = ({
         />
       </div>
 
-      <div className={styles.inputContainer}>
-        <p className={styles.label}>Sobrenome</p>
+      <div className="">
+        <p className="font-semibold m-0 text-sm">Sobrenome</p>
         <input
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           type="text"
           id="sobrenome"
           placeholder="Digite o sobrenome"
@@ -114,11 +112,11 @@ export const Form: React.FC<FormProps> = ({
         />
       </div>
 
-      <div className={styles.inputContainer}>
-        <p className={styles.label}>Setor</p>
+      <div className="">
+        <p className="font-semibold m-0 text-sm">Setor</p>
         <select
           id="setor"
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           onChange={handleSectorChange}
         >
           <option value="">Selecione o setor</option>
@@ -131,39 +129,43 @@ export const Form: React.FC<FormProps> = ({
         </select>
       </div>
 
-      <div className={styles.inputContainer}>
-        <div className={styles.containerRadio}>
-          <div className={styles.radiobutton}>
+      <div className="">
+        <div className="flex items-center pb-1 gap-2">
+          <div className="flex items-center justify-center font-semibold text-xs">
             <input
               type="radio"
               id="ramal"
               name="drone"
               value="ramal"
               onClick={handleRadioButton}
-              checked={selectRadioButton === "ramal"}
+              defaultChecked={selectRadioButton === "ramal"}
             />
-            <label htmlFor="ramal">Ramal</label>
+            <label htmlFor="ramal" className="ml-1">
+              Ramal
+            </label>
           </div>
 
-          <div className={styles.radiobutton}>
+          <div className="flex items-center justify-center font-semibold text-xs pr-2.5">
             <input
               type="radio"
               id="celular"
               name="drone"
               value="celular"
               onClick={handleRadioButton}
-              checked={selectRadioButton === "celular"}
+              defaultChecked={selectRadioButton === "celular"}
             />
-            <label htmlFor="celular">Celular</label>
+            <label htmlFor="celular" className="ml-1">
+              Celular
+            </label>
           </div>
-          <span style={{ paddingRight: "10px" }}>(Opcional)</span>
+          <span className=" text-[12px]">(Opcional)</span>
         </div>
 
         <input
           disabled={!selectRadioButton}
           value={branchLineOrCellPhone}
           onChange={handleInputChange}
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           type="text"
           placeholder={
             !selectRadioButton
@@ -179,24 +181,24 @@ export const Form: React.FC<FormProps> = ({
         />
       </div>
 
-      <div className={styles.inputContainer}>
-        <p className={styles.label}>E-mail</p>
+      <div className="">
+        <p className="font-semibold m-0 text-sm">E-mail</p>
         <input
           defaultValue={email?.trim() ? email : resultUserName}
           onChange={(e) => setEmail(e.target.value)}
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           type="email"
           id="email"
           placeholder="Digite o e-mail"
         />
       </div>
 
-      <div className={styles.inputContainer}>
-        <p className={styles.label}>Local</p>
+      <div className="">
+        <p className="font-semibold m-0 text-sm">Local</p>
         <select
           id="local"
           defaultValue={local}
-          className={styles.input}
+          className="w-full p-2.5 rounded-lg bg-white border border-blue-500 box-border text-sm mb-5"
           onChange={handleLocal}
         >
           <option value="">Selecione a localidade</option>
@@ -207,9 +209,9 @@ export const Form: React.FC<FormProps> = ({
       <input type="hidden" name="imgCropada" id="imgCropada" />
       <input type="hidden" name="criar" value="criar" />
 
-      <div className={styles.buttonContainer}>
+      <div className="flex flex-col gap-4">
         <input
-          className={`${styles.button} ${styles.buttonReset}`}
+          className="w-full p-3.5 rounded-lg font-semibold text-base border border-gray-300 bg-gray-200 hover:scale-105 cursor-pointer transition-all duration-200"
           type="reset"
           value="Redefinir"
           onClick={resetForm}

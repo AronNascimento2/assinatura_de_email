@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import styles from "../styles/modal.module.css";
 import Cropper, { Area } from "react-easy-crop";
 import getCroppedImg from "../utils/getCroppedImg";
 
@@ -36,27 +35,38 @@ export const ModalCrop: React.FC<ModalCropProps> = ({
   const onCropComplete = useCallback(
     async (_croppedArea: Area, croppedAreaPixels: Area) => {
       if (!selectedImage) return;
+
       const croppedImg = await getCroppedImg(
         selectedImage,
         croppedAreaPixels,
-        rotation
+        rotation,
       );
+
       setCroppedImage(croppedImg);
     },
-    [selectedImage, rotation, setCroppedImage]
+    [selectedImage, rotation, setCroppedImage],
   );
 
   return (
     <>
       {isModalOpen && selectedImage && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <span className={styles.close} onClick={closeModal}>
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4">
+          <div className="relative w-full max-w-[700px] rounded-xl bg-white p-5 text-center shadow-2xl">
+            <span
+              onClick={closeModal}
+              className="absolute right-4 top-2 cursor-pointer text-3xl leading-none text-gray-700 hover:text-black"
+            >
               &times;
             </span>
-            <h3>Editar Imagem</h3>
-            <div className={styles.controls}>
-              <label>Zoom</label>
+
+            <h3 className="mb-4 text-xl font-semibold text-gray-800">
+              Editar Imagem
+            </h3>
+
+            <div className="mt-2 flex flex-col items-center">
+              <label className="mt-1 text-sm font-medium text-gray-700">
+                Zoom
+              </label>
               <input
                 type="range"
                 min="1"
@@ -64,9 +74,12 @@ export const ModalCrop: React.FC<ModalCropProps> = ({
                 step="0.1"
                 value={zoom}
                 onChange={(e) => setZoom(Number(e.target.value))}
+                className="mb-3 w-4/5 cursor-pointer"
               />
 
-              <label>Rotação</label>
+              <label className="mt-1 text-sm font-medium text-gray-700">
+                Rotação
+              </label>
               <input
                 type="range"
                 min="-180"
@@ -74,10 +87,12 @@ export const ModalCrop: React.FC<ModalCropProps> = ({
                 step="1"
                 value={rotation}
                 onChange={(e) => setRotation(Number(e.target.value))}
+                className="mb-3 w-4/5 cursor-pointer"
               />
             </div>
-            <div className={styles.wrapperImages}>
-              <div className={styles.cropContainer}>
+
+            <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
+              <div className="relative h-[300px] w-[300px] bg-gray-200">
                 <Cropper
                   image={selectedImage}
                   crop={crop}
@@ -91,23 +106,25 @@ export const ModalCrop: React.FC<ModalCropProps> = ({
                 />
               </div>
 
-              <div className={styles.previewContainer}>
-                <div className={styles.previewWrapper}>
+              <div className="mt-3">
+                <div className="mx-auto flex h-[130px] w-[130px] items-center justify-center overflow-hidden rounded-full bg-gray-100">
                   {croppedImage ? (
                     <img
                       src={croppedImage}
                       alt="Preview"
-                      className={styles.previewImage}
+                      className="h-full w-full object-cover"
                     />
                   ) : (
-                    <p>Selecione uma área</p>
+                    <p className="px-2 text-center text-sm text-gray-500">
+                      Selecione uma área
+                    </p>
                   )}
                 </div>
               </div>
             </div>
 
             <button
-              className={styles.buttonAplicar}
+              className="mt-6 rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
               onClick={() => setIsModalOpen(false)}
             >
               Aplicar Recorte
