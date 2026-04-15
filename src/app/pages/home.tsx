@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { Footer } from "../components/footer";
 import { Form } from "../components/form";
 import { ModalCrop } from "../components/modalCrop";
 import { SignatureCompleted } from "../components/signatureCompleted";
