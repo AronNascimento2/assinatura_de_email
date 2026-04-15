@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
-import Cropper, { Area } from "react-easy-crop";
+import Cropper from "react-easy-crop";
+import type { Area } from "react-easy-crop";
 import getCroppedImg from "../utils/getCroppedImg";
 
 interface ModalCropProps {

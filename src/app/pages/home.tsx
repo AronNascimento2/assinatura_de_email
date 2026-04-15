@@ -117,6 +117,8 @@ const Home: React.FC = () => {
 
         <div className="mt-4">
           <SignatureCompleted
+            resultUserName={resultUserName}
+            selectRadioButton={selectRadioButton}
             contato={branchLineOrCellPhone}
             email={email}
             local={local}

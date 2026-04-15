@@ -9,6 +9,8 @@ interface SignatureCompletedProps {
   local?: string;
   name?: string;
   croppedImage: string | null;
+  selectRadioButton: string;
+  resultUserName: string;
 }
 
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
@@ -19,6 +21,8 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   local,
   name,
   croppedImage,
+  selectRadioButton,
+  resultUserName,
 }) => {
   const signatureRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +58,14 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
     link.download = `assinatura_${name}.png`;
     link.click();
   };
+  const formatLabel = (value?: string) => {
+    if (!value) return "";
+
+    if (value === "celular") return "Cel:";
+
+    return value[0].toUpperCase() + value.slice(1) + ":";
+  };
+  const label = formatLabel(selectRadioButton);
 
   return (
     <>
@@ -76,11 +88,11 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
         </p>
 
         <p className="absolute bottom-[29%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
-          {contato || "Contato"}
+          Tel: 2413-1700 {label} {contato}
         </p>
 
         <p className="absolute bottom-[18%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
-          {email || "Email"}
+          {email?.trim() ? email : resultUserName}
         </p>
 
         <p className="absolute bottom-[6%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">

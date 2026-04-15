@@ -138,7 +138,7 @@ export const Form: React.FC<FormProps> = ({
               name="drone"
               value="ramal"
               onClick={handleRadioButton}
-              defaultChecked={selectRadioButton === "ramal"}
+              checked={selectRadioButton === "ramal"}
             />
             <label htmlFor="ramal" className="ml-1">
               Ramal
@@ -152,7 +152,7 @@ export const Form: React.FC<FormProps> = ({
               name="drone"
               value="celular"
               onClick={handleRadioButton}
-              defaultChecked={selectRadioButton === "celular"}
+              checked={selectRadioButton === "celular"}
             />
             <label htmlFor="celular" className="ml-1">
               Celular

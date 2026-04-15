@@ -4,7 +4,8 @@ import getCroppedImg from "./cropImage";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useCallback, useState } from "react";
-import Cropper, { Area, Point } from "react-easy-crop";
+import Cropper from "react-easy-crop";
+import type { Area, Point } from "react-easy-crop";
 
 const dogImg =
   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
