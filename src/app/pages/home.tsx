@@ -65,9 +65,6 @@ const Home: React.FC = () => {
             <h1 className="text-center text-base font-bold text-white sm:text-xl">
               Gerador de Assinatura de Email
             </h1>
-            <span className="text-xs text-gray-300 sm:text-sm">
-              Crie sua assinatura profissional em segundos
-            </span>
           </div>
 
           {/* Logo direita (ou ação futura) */}
