@@ -1,5 +1,7 @@
-import { useRef } from "react";
-import html2canvas from "html2canvas";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toPng } from "html-to-image";
+import styles from "../styles/sig.module.css";
+import { Button } from "@/components/ui/button";
 
 interface SignatureCompletedProps {
   sobrenome?: string;
@@ -13,6 +15,80 @@ interface SignatureCompletedProps {
   resultUserName: string;
 }
 
+const SIGNATURE_WIDTH = 641;
+const SIGNATURE_HEIGHT = 184;
+const DEFAULT_USER_IMAGE = "/user.png";
+const TEMPLATE_IMAGE = "/template4.jpg";
+
+const formatLabel = (value?: string) => {
+  if (!value) return "";
+  if (value === "celular") return "Cel:";
+  return `${value.charAt(0).toUpperCase()}${value.slice(1)}:`;
+};
+
+const blobToDataURL = (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = () =>
+      reject(new Error("Erro ao converter blob para base64"));
+
+    reader.readAsDataURL(blob);
+  });
+
+const normalizeImageSrc = async (src: string | null): Promise<string> => {
+  if (!src?.trim()) return DEFAULT_USER_IMAGE;
+
+  if (src.startsWith("data:image/")) return src;
+
+  if (src.startsWith("blob:")) {
+    try {
+      const response = await fetch(src);
+      const blob = await response.blob();
+      return await blobToDataURL(blob);
+    } catch {
+      return DEFAULT_USER_IMAGE;
+    }
+  }
+
+  return src;
+};
+
+const waitForImages = async (container: HTMLElement) => {
+  const images = Array.from(container.querySelectorAll("img"));
+
+  await Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
+      }
+
+      return new Promise<void>((resolve, reject) => {
+        const handleLoad = () => {
+          cleanup();
+          resolve();
+        };
+
+        const handleError = () => {
+          cleanup();
+          reject(
+            new Error(`Falha ao carregar imagem: ${img.currentSrc || img.src}`),
+          );
+        };
+
+        const cleanup = () => {
+          img.removeEventListener("load", handleLoad);
+          img.removeEventListener("error", handleError);
+        };
+
+        img.addEventListener("load", handleLoad);
+        img.addEventListener("error", handleError);
+      });
+    }),
+  );
+};
+
 export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   sobrenome,
   selectedSector,
@@ -25,97 +101,156 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
   resultUserName,
 }) => {
   const signatureRef = useRef<HTMLDivElement>(null);
+  const [resolvedUserImage, setResolvedUserImage] =
+    useState<string>(DEFAULT_USER_IMAGE);
+  const [isResolvingImage, setIsResolvingImage] = useState(false);
 
-  const handleDownload = async () => {
-    if (!signatureRef.current) return;
+  useEffect(() => {
+    let cancelled = false;
 
-    const scaleFactor = 4;
+    const resolveImage = async () => {
+      setIsResolvingImage(true);
 
-    const originalCanvas = await html2canvas(signatureRef.current, {
-      backgroundColor: null,
-      scale: scaleFactor,
-      useCORS: true,
-    });
+      try {
+        const normalized = await normalizeImageSrc(croppedImage);
+        if (!cancelled) {
+          setResolvedUserImage(normalized);
+        }
+      } catch {
+        if (!cancelled) {
+          setResolvedUserImage(DEFAULT_USER_IMAGE);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsResolvingImage(false);
+        }
+      }
+    };
 
-    const targetWidth = 593;
-    const targetHeight = 180;
+    resolveImage();
 
-    const resizedCanvas = document.createElement("canvas");
-    resizedCanvas.width = targetWidth;
-    resizedCanvas.height = targetHeight;
+    return () => {
+      cancelled = true;
+    };
+  }, [croppedImage]);
 
-    const ctx = resizedCanvas.getContext("2d");
-    if (!ctx) return;
+  const label = useMemo(
+    () => formatLabel(selectRadioButton),
+    [selectRadioButton],
+  );
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(originalCanvas, 0, 0, targetWidth, targetHeight);
+  const displayEmail = useMemo(() => {
+    return email?.trim() ? email : resultUserName;
+  }, [email, resultUserName]);
 
-    const image = resizedCanvas.toDataURL("image/png", 1.0);
+  const canDownload = useMemo(() => {
+    return Boolean(name && sobrenome && !isResolvingImage);
+  }, [name, sobrenome, isResolvingImage]);
 
-    const link = document.createElement("a");
-    link.href = image;
-    link.download = `assinatura_${name}.png`;
-    link.click();
-  };
-  const formatLabel = (value?: string) => {
-    if (!value) return "";
+  const handleImageError = useCallback(
+    (event: React.SyntheticEvent<HTMLImageElement>) => {
+      if (event.currentTarget.src.includes(DEFAULT_USER_IMAGE)) return;
+      event.currentTarget.src = DEFAULT_USER_IMAGE;
+    },
+    [],
+  );
 
-    if (value === "celular") return "Cel:";
+  const handleDownload = useCallback(async () => {
+    const element = signatureRef.current;
+    if (!element) return;
 
-    return value[0].toUpperCase() + value.slice(1) + ":";
-  };
-  const label = formatLabel(selectRadioButton);
+    try {
+      await waitForImages(element);
+
+      const dataUrl = await toPng(element, {
+        cacheBust: true,
+        pixelRatio: 1,
+        width: SIGNATURE_WIDTH,
+        height: SIGNATURE_HEIGHT,
+        canvasWidth: SIGNATURE_WIDTH,
+        canvasHeight: SIGNATURE_HEIGHT,
+        style: {
+          width: `${SIGNATURE_WIDTH}px`,
+          height: `${SIGNATURE_HEIGHT}px`,
+        },
+      });
+
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = `assinatura_${name || "usuario"}.png`;
+      link.click();
+    } catch (error) {
+      console.error("Erro ao gerar assinatura:", error);
+    }
+  }, [name]);
 
   return (
-    <>
+    <div className={styles.signatureImagesContainer}>
       <div
         ref={signatureRef}
-        className="relative flex w-fit flex-col items-center justify-center bg-transparent"
+        className={styles.signatureImages}
+        style={{
+          width: `${SIGNATURE_WIDTH}px`,
+          height: `${SIGNATURE_HEIGHT}px`,
+          position: "relative",
+          overflow: "hidden",
+        }}
       >
-        <img src="/template.jpg" alt="Template" className="block" />
-
-        <p className="absolute bottom-[70%] left-[46%] translate-x-[1%] text-[40px] font-bold uppercase text-[#16203d] m-0 p-0">
-          {name || "Nome"}
+        <img
+          src={TEMPLATE_IMAGE}
+          alt="Template"
+          className={styles.image}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "block",
+            objectFit: "cover",
+          }}
+        />
+        <p
+          className="font-light"
+          style={{
+            rotate: "-90deg",
+            position: "absolute",
+            bottom: "105px", // 👈 você ajusta aqui
+            left: "2px", // 👈 ou left, top etc
+            fontFamily: "Alexandria",
+            fontSize: "9px",
+            color: "#fefefe", // ou branco dependendo do fundo
+            zIndex: 10,
+          }}
+        >
+          www.unicargo.com.br
         </p>
+        <img
+          src="/logo.png"
+          className="w-[159px] h-[110px] absolute top-[107px] left-[3px]"
+        />
 
-        <p className="absolute bottom-[55%] left-[46%] translate-x-[1%] text-[40px] font-bold uppercase text-[#16203d] m-0 p-0">
-          {sobrenome || "Sobrenome"}
-        </p>
+        <p className={styles.nameSignature}>{name || "Nome"}</p>
+        <p className={styles.sobrenomeSignature}>{sobrenome || "Sobrenome"}</p>
+        <p className={styles.setorSignature}>{selectedSector || ""}</p>
 
-        <p className="absolute bottom-[48%] left-[46%] translate-x-[1%] text-[17px] font-semibold text-[#16203d] m-0 p-0">
-          {selectedSector || ""}
-        </p>
-
-        <p className="absolute bottom-[29%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
+        <p className={styles.contatoSignature}>
           Tel: 2413-1700 {label} {contato}
         </p>
 
-        <p className="absolute bottom-[18%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
-          {email?.trim() ? email : resultUserName}
-        </p>
-
-        <p className="absolute bottom-[6%] left-[48.4%] translate-x-[1%] text-[#16203d] m-0 p-0">
-          {local || "Local"}
-        </p>
+        <p className={styles.emailSignature}>{displayEmail}</p>
+        <p className={styles.localSignature}>{local || "Local"}</p>
 
         <img
-          className="absolute bottom-[15.7%] left-[33.5%] h-[180px] w-[180px] -translate-x-1/2 rounded-full"
-          src={croppedImage || "/user.png"}
+          className={styles.imageSignature}
+          src={resolvedUserImage}
           alt="Assinatura"
+          onError={handleImageError}
         />
       </div>
 
-      {name && sobrenome && croppedImage && (
-        <div className="mt-5 flex justify-center gap-2.5">
-          <button
-            onClick={handleDownload}
-            className="z-[99] my-2 rounded-md bg-blue-600 px-4 py-2 text-white transition hover:cursor-pointer hover:bg-blue-400"
-          >
-            📥 Baixar Assinatura
-          </button>
-        </div>
+      {canDownload && (
+        <Button className={styles.downloadButton} onClick={handleDownload}>
+          📥 Baixar Assinatura
+        </Button>
       )}
-    </>
+    </div>
   );
 };

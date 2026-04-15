@@ -1,0 +1,106 @@
+.signatureImages {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+ 
+.signatureImages * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #16203d;
+}
+ 
+.imageSignature {
+  position: absolute;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  bottom:14.2%;
+  left: 33%;
+  transform: translateX(-50%); 
+}
+ 
+.nameSignature,
+.sobrenomeSignature {
+  text-transform: uppercase;
+}
+.nameSignature {
+  left: 46%;
+  font-size: 28px;
+  font-weight: bold;
+  bottom: 70%; 
+  transform: translateX(1%); 
+  position: absolute;
+}
+ 
+.sobrenomeSignature {
+  left: 46%;
+  font-size: 28px;
+  font-weight: bold;
+  bottom: 55%; 
+  position: absolute;
+  transform: translateX(1%); 
+}
+ 
+.setorSignature {
+  bottom: 48%; 
+  left: 46%;
+  font-size: 12px;
+  transform: translateX(1%); 
+  position: absolute;
+  font-weight: 600;
+}
+ 
+.emailSignature {
+  bottom: 18%; 
+  left: 48.4%;
+  position: absolute;
+ font-size: 12px;
+
+  transform: translateX(1%); 
+}
+ 
+.contatoSignature {
+  bottom: 29%; 
+  transform: translateX(1%); 
+  position: absolute;
+ font-size: 12px;
+  left: 48.4%;
+}
+ 
+.localSignature {
+  bottom: 6%; 
+  left: 48.4%;
+  position: absolute;
+  font-size: 12px;
+
+  transform: translateX(1%);
+}
+ 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+ 
+.downloadButton {
+  z-index: 99;
+ 
+  background-color: #007bff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+ 
+  color: White;
+  &:hover {
+    cursor: pointer;
+    background-color: #61a3e9;
+  }
+}
+ 
