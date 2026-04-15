@@ -52,12 +52,33 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <header className="mx-auto mb-8 flex w-full max-w-4xl items-center justify-between rounded-full bg-[#16203d] px-4 py-3 shadow-lg">
-          <img src="uni-logo.png" className="h-6 w-6" alt="unilogo" />
-          <p className="m-0 text-center text-sm font-bold text-white sm:text-lg">
-            Criador de assinatura de e-mail
-          </p>
-          <img src="uni-logo.png" className="h-6 w-6" alt="unilogo" />
+        <header className="mx-auto mb-10 flex w-full  items-center justify-between rounded-2xl bg-gradient-to-r from-[#16203d] to-[#1f2b52] px-6 py-4 shadow-xl">
+          {/* Logo esquerda */}
+          <div className="flex items-center gap-3">
+            <img src="uni-logo.png" className="h-8 w-8" alt="unilogo" />
+            <span className="hidden text-sm font-medium text-gray-300 sm:block">
+              Unicargo
+            </span>
+          </div>
+
+          {/* Título */}
+          <div className="flex flex-col items-center">
+            <h1 className="text-center text-base font-bold text-white sm:text-xl">
+              Gerador de Assinatura de Email
+            </h1>
+            <span className="text-xs text-gray-300 sm:text-sm">
+              Crie sua assinatura profissional em segundos
+            </span>
+          </div>
+
+          {/* Logo direita (ou ação futura) */}
+          <div className="flex items-center gap-2">
+            <img
+              src="uni-logo.png"
+              className="h-8 w-8 opacity-80"
+              alt="unilogo"
+            />
+          </div>
         </header>
 
         <main className="flex flex-1 flex-col gap-8 lg:grid lg:grid-cols-[minmax(360px,420px)_1fr] lg:items-start lg:gap-12">
