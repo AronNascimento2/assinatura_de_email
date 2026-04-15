@@ -17,10 +17,10 @@
 .imageSignature {
   position: absolute;
   border-radius: 50%;
-  width: 130px;
-  height: 130px;
-  bottom:14.2%;
-  left: 33%;
+  width: 150px;
+  height: 150px;
+  bottom: 8.8%;
+  left: 33.4%;
   transform: translateX(-50%); 
 }
  

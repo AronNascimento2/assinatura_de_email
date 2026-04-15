@@ -18,7 +18,7 @@ interface SignatureCompletedProps {
 const SIGNATURE_WIDTH = 641;
 const SIGNATURE_HEIGHT = 184;
 const DEFAULT_USER_IMAGE = "/user.png";
-const TEMPLATE_IMAGE = "/template4.jpg";
+const TEMPLATE_IMAGE = "/template5.png";
 
 const formatLabel = (value?: string) => {
   if (!value) return "";
@@ -243,6 +243,11 @@ export const SignatureCompleted: React.FC<SignatureCompletedProps> = ({
           src={resolvedUserImage}
           alt="Assinatura"
           onError={handleImageError}
+          style={{
+            border: "15px solid #fefefe",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
         />
       </div>
 
