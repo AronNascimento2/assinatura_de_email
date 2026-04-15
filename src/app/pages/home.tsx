@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 import { Footer } from "../components/footer";
@@ -9,7 +10,6 @@ import { SignatureCompleted } from "../components/signatureCompleted";
 const Home: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -18,6 +18,7 @@ const Home: React.FC = () => {
   const [selectedSector, setSelectedSector] = useState<string>("");
   const [local, setLocal] = useState<string>("CD Guarulhos - Cond.");
   const [selectRadioButton, setSelectRadioButton] = useState("");
+
   const handleSectorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSector(event.target.value);
   };
@@ -25,11 +26,7 @@ const Home: React.FC = () => {
   const handleRadioButton = (event: React.MouseEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
 
-    if (selectRadioButton === value) {
-      setSelectRadioButton("");
-    } else {
-      setSelectRadioButton(value);
-    }
+    setSelectRadioButton((prev) => (prev === value ? "" : value));
   };
 
   const handleLocal = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,44 +35,48 @@ const Home: React.FC = () => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
       setIsModalOpen(true);
     }
   };
+
   const firstLetter = name?.[0] ?? "";
   const lastName = sobrenome ?? "";
 
   const resultUserName =
     `${firstLetter}${lastName}`.trim().toLowerCase() + "@unicargo.com.br";
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="flex-1 flex flex-col items-center ">
-        <div className="flex justify-between items-center bg-[#16203d] rounded-full shadow-lg w-3/5 px-3 py-2 mt-2">
-          <img src="uni-logo.png" className="w-6 h-6" alt="unilogo" />
-          <p className="text-lg font-bold text-white m-0">
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
+        <header className="mx-auto mb-8 flex w-full max-w-4xl items-center justify-between rounded-full bg-[#16203d] px-4 py-3 shadow-lg">
+          <img src="uni-logo.png" className="h-6 w-6" alt="unilogo" />
+          <p className="m-0 text-center text-sm font-bold text-white sm:text-lg">
             Criador de assinatura de e-mail
           </p>
-          <img src="uni-logo.png" className="w-6 h-6" alt="unilogo" />
-        </div>
+          <img src="uni-logo.png" className="h-6 w-6" alt="unilogo" />
+        </header>
 
-        <div className="flex justify-center  w-full mt-4 ">
-          <div className=" "></div>
-          <div className="w-1/3 flex justify-center items-center">
-            <div className=" items-center ">
-              <form method="post">
-                <label className="cursor-pointer items-center">
+        <main className="flex flex-1 flex-col gap-8 lg:grid lg:grid-cols-[minmax(360px,420px)_1fr] lg:items-start lg:gap-12">
+          <section className="flex w-full flex-col rounded-2xl bg-white p-6 shadow-sm">
+            <div className="mb-8 flex w-full justify-center">
+              <form method="post" className="flex justify-center">
+                <label className="group relative cursor-pointer">
                   <img
                     src={croppedImage || "user.png"}
-                    className="mt-10 w-[140px] h-[140px] rounded-full border-4 border-blue-500"
+                    className="h-[140px] w-[140px] rounded-full border-4 border-blue-500 object-cover shadow-md"
                     alt="Usuário"
                   />
-                  <div className="absolute bottom-1 left-0 right-0 bg-white bg-opacity-50 overflow-hidden h-0 transition-all duration-500 w-full hover:h-1/2 cursor-pointer">
-                    <div className="text-gray-800 font-bold text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      Clique pra selecionar a imagem
-                    </div>
+
+                  <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="px-3 text-center text-xs font-semibold text-white">
+                      Clique para selecionar a imagem
+                    </span>
                   </div>
+
                   <input
                     type="file"
                     name="image"
@@ -86,50 +87,52 @@ const Home: React.FC = () => {
                 </label>
               </form>
             </div>
-          </div>
-          <ModalCrop
-            isModalOpen={isModalOpen}
-            selectedImage={selectedImage}
-            setCroppedImage={setCroppedImage}
-            setIsModalOpen={setIsModalOpen}
-            setSelectedImage={setSelectedImage}
-            croppedImage={croppedImage}
-          />
-        </div>
-        <div className="mt-4">
-          <Form
-            setSelectRadioButton={setSelectRadioButton}
-            branchLineOrCellPhone={branchLineOrCellPhone}
-            selectRadioButton={selectRadioButton}
-            handleRadioButton={handleRadioButton}
-            setName={setName}
-            setSobrenome={setSobrenome}
-            setEmail={setEmail}
-            setBranchLineOrCellPhone={setBranchLineOrCellPhone}
-            handleSectorChange={handleSectorChange}
-            handleLocal={handleLocal}
-            local={local}
-            resultUserName={resultUserName}
-            email={email}
-            setSelectedSector={setSelectedSector}
-          />
-        </div>
 
-        <div className="mt-4">
-          <SignatureCompleted
-            resultUserName={resultUserName}
-            selectRadioButton={selectRadioButton}
-            contato={branchLineOrCellPhone}
-            email={email}
-            local={local}
-            name={name}
-            selectedSector={selectedSector}
-            sobrenome={sobrenome}
-            croppedImage={croppedImage}
-          />
-        </div>
+            <div className="w-full">
+              <Form
+                setSelectRadioButton={setSelectRadioButton}
+                branchLineOrCellPhone={branchLineOrCellPhone}
+                selectRadioButton={selectRadioButton}
+                handleRadioButton={handleRadioButton}
+                setName={setName}
+                setSobrenome={setSobrenome}
+                setEmail={setEmail}
+                setBranchLineOrCellPhone={setBranchLineOrCellPhone}
+                handleSectorChange={handleSectorChange}
+                handleLocal={handleLocal}
+                local={local}
+                resultUserName={resultUserName}
+                email={email}
+                setSelectedSector={setSelectedSector}
+              />
+            </div>
+          </section>
 
-        <Footer />
+          <section className="flex w-full justify-center lg:justify-end">
+            <div className="w-full rounded-2xl bg-white p-6 shadow-sm flex justify-center">
+              <SignatureCompleted
+                resultUserName={resultUserName}
+                selectRadioButton={selectRadioButton}
+                contato={branchLineOrCellPhone}
+                email={email}
+                local={local}
+                name={name}
+                selectedSector={selectedSector}
+                sobrenome={sobrenome}
+                croppedImage={croppedImage}
+              />
+            </div>
+          </section>
+        </main>
+
+        <ModalCrop
+          isModalOpen={isModalOpen}
+          selectedImage={selectedImage}
+          setCroppedImage={setCroppedImage}
+          setIsModalOpen={setIsModalOpen}
+          setSelectedImage={setSelectedImage}
+          croppedImage={croppedImage}
+        />
       </div>
     </div>
   );
