@@ -6,6 +6,9 @@ import { Form } from "../components/form";
 import { ModalCrop } from "../components/modalCrop";
 import { SignatureCompleted } from "../components/signatureCompleted";
 
+import { AvatarModel } from "../components/avatarModel";
+import { SetorModel } from "../components/setorModel";
+
 const Home: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +20,6 @@ const Home: React.FC = () => {
   const [selectedSector, setSelectedSector] = useState<string>("");
   const [local, setLocal] = useState<string>("CD Guarulhos - Cond.");
   const [selectRadioButton, setSelectRadioButton] = useState("");
-
   const handleSectorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSector(event.target.value);
   };
@@ -52,7 +54,6 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
         <header className="mx-auto mb-10 flex w-full  items-center justify-between rounded-2xl bg-gradient-to-r from-[#16203d] to-[#1f2b52] px-6 py-4 shadow-xl">
-          {/* Logo esquerda */}
           <div className="flex items-center gap-3">
             <img src="uni-logo.png" className="h-8 w-8" alt="unilogo" />
             <span className="hidden text-sm font-medium text-gray-300 sm:block">
@@ -125,7 +126,7 @@ const Home: React.FC = () => {
             </div>
           </section>
 
-          <section className="flex w-full justify-center lg:justify-end">
+          <section className="flex w-full flex-col gap-4 justify-center lg:justify-end">
             <div className="w-full rounded-2xl bg-white p-6 shadow-sm flex justify-center">
               <SignatureCompleted
                 resultUserName={resultUserName}
@@ -139,6 +140,13 @@ const Home: React.FC = () => {
                 croppedImage={croppedImage}
               />
             </div>
+            <AvatarModel
+              croppedImage={croppedImage}
+              name={name}
+              sobrenome={sobrenome}
+              selectedSector={selectedSector}
+            />
+            <SetorModel />
           </section>
         </main>
 
