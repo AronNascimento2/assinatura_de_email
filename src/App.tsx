@@ -1,12 +1,11 @@
-import { Footer } from "./app/components/footer";
 import Home from "./app/pages/home";
+import { AppLayout } from "./components/layout/AppLayout";
 
 function App() {
   return (
-    <>
+    <AppLayout>
       <Home />
-      <Footer />
-    </>
+    </AppLayout>
   );
 }
 

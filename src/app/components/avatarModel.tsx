@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 
 interface AvatarModeldProps {
@@ -17,7 +11,7 @@ interface AvatarModeldProps {
 const SIGNATURE_WIDTH = 1920;
 const SIGNATURE_HEIGHT = 1080;
 const DEFAULT_USER_IMAGE = "/user.png";
-const TEMPLATE_IMAGE = "/template5.png";
+// const TEMPLATE_IMAGE = "/template5.png";
 
 const blobToDataURL = (blob: Blob): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -92,6 +86,7 @@ export const AvatarModel: React.FC<AvatarModeldProps> = ({
   const [resolvedUserImage, setResolvedUserImage] =
     useState<string>(DEFAULT_USER_IMAGE);
   const [isResolvingImage, setIsResolvingImage] = useState(false);
+  console.log(isResolvingImage, resolvedUserImage);
 
   useEffect(() => {
     let cancelled = false;
@@ -122,17 +117,17 @@ export const AvatarModel: React.FC<AvatarModeldProps> = ({
     };
   }, [croppedImage]);
 
-  const canDownload = useMemo(() => {
-    return Boolean(name && sobrenome && !isResolvingImage);
-  }, [name, sobrenome, isResolvingImage]);
+  // const canDownload = useMemo(() => {
+  //   return Boolean(name && sobrenome && !isResolvingImage);
+  // }, [name, sobrenome, isResolvingImage]);
 
-  const handleImageError = useCallback(
-    (event: React.SyntheticEvent<HTMLImageElement>) => {
-      if (event.currentTarget.src.includes(DEFAULT_USER_IMAGE)) return;
-      event.currentTarget.src = DEFAULT_USER_IMAGE;
-    },
-    [],
-  );
+  // const handleImageError = useCallback(
+  //   (event: React.SyntheticEvent<HTMLImageElement>) => {
+  //     if (event.currentTarget.src.includes(DEFAULT_USER_IMAGE)) return;
+  //     event.currentTarget.src = DEFAULT_USER_IMAGE;
+  //   },
+  //   [],
+  // );
 
   const handleDownload = useCallback(async () => {
     const element = avatarRef.current;

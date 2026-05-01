@@ -38,11 +38,11 @@ export const SetorModel: React.FC = () => {
   const [isMultiline, setIsMultiline] = useState(false);
   useEffect(() => {
     if (textRef.current) {
-      const el = textRef.current;
       const isMultiline = selectedItemSector.length > 15;
       setIsMultiline(isMultiline);
     }
   }, [selectedItemSector]);
+
   return (
     <div className="flex h-[200px] w-full items-center gap-6 rounded-2xl bg-white p-6 shadow-sm">
       <div className="relative flex items-center justify-center">

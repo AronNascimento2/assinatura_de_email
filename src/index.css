@@ -110,26 +110,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 @layer base {
-  * {
-    @apply border-border;
-    outline-color: theme("colors.ring / 0.5");
-  }
+ 
 
-  body {
-    @apply bg-background text-foreground;
-    background-color: #f7f7f7;
-    font-family: "Alexandria", sans-serif;
-
-    background-image: url("/wallpaper2.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-color: rgba(0, 0, 0, 0.45);
-  }
 }

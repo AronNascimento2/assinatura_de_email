@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",
+    "axios": "^1.15.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cropperjs": "^2.1.1",
@@ -23,6 +24,7 @@
     "react-dom": "^19.2.3",
     "react-draggable": "^4.4.6",
     "react-easy-crop": "^5.5.7",
+    "react-hook-form": "^7.74.0",
     "react-medium-image-zoom": "^5.2.14",
     "react-modal": "^3.16.3",
     "shadcn": "^4.2.0",
